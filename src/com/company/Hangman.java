@@ -11,7 +11,7 @@ import javax.swing.GroupLayout;
  * limit letters in guessTextField to 1
  * insert correct letters into arraylist in proper spots
  * allocate spaces for correct/incorrect (_)
- *
+ * keep the frame the same size
  */
 
 public class Hangman {
@@ -33,8 +33,17 @@ public class Hangman {
     //title above incorrectly guessed letters
     JLabel incorrectLettersText;
 
+    //panel to hold gallows
+    JPanel gallowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+    //gallow in here
+    JLabel holdgallow;
+
+    //create image gallow
+    ImageIcon gallow;
+
     //number of possible guesses before game over
-    static final int MAX_GUESSES = 7;
+    static final int MAX_GUESSES = 6;
 
 
     public Hangman() {
@@ -62,6 +71,7 @@ public class Hangman {
         //frame that has all components
         JFrame gameFrame = new JFrame("Hangman");
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // gameFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         //panel inside frame that holds everything
         JPanel everything = new JPanel();
@@ -94,9 +104,8 @@ public class Hangman {
         incorrectLettersPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //display gallow
-        JPanel gallowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ImageIcon gallow = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow.gif");
-        JLabel holdgallow = new JLabel(gallow);
+        gallow = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow.gif");
+        holdgallow = new JLabel(gallow);
         gallowPanel.add(holdgallow);
         gallowPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -129,6 +138,7 @@ public class Hangman {
         layout.setAutoCreateContainerGaps(true);
 
         gameFrame.pack();
+        gameFrame.setSize(500,300);
         gameFrame.setVisible(true);
     }
 
@@ -178,7 +188,7 @@ public class Hangman {
         incorrectLettersText.setText(incorrectToString(incorrect,MAX_GUESSES));
 
         //call on updatePic()
-        updatePic();
+        updatePic(incorrect.size());
 
         //brings up game over notification
         if(incorrect.size() == MAX_GUESSES){
@@ -187,9 +197,56 @@ public class Hangman {
     }
 
     //update picture
-    public void updatePic(){
-        ImageIcon head = new ImageIcon();
-        //delete me
+    public void updatePic(int numBody){
+        //if 1 wrong then only head
+        if(numBody == 1) {
+            gallowPanel.removeAll();
+            ImageIcon gallow1 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow1.gif");
+            JLabel holdgallow1 = new JLabel(gallow1);
+            gallowPanel.add(holdgallow1);
+        }
+
+        //if 2 wrong then head and body
+        if(numBody == 2) {
+            gallowPanel.removeAll();
+            ImageIcon gallow2 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow2.gif");
+            JLabel holdgallow2 = new JLabel(gallow2);
+            gallowPanel.add(holdgallow2);
+        }
+
+        //if 3 wrong then head and body and arm
+        if(numBody == 3) {
+            gallowPanel.removeAll();
+            ImageIcon gallow3 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow3.gif");
+            JLabel holdgallow3 = new JLabel(gallow3);
+            gallowPanel.add(holdgallow3);
+        }
+
+        //if 4 wrong then head and body and arms
+        if(numBody == 4) {
+            gallowPanel.removeAll();
+            ImageIcon gallow4 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow4.gif");
+            JLabel holdgallow4 = new JLabel(gallow4);
+            gallowPanel.add(holdgallow4);
+        }
+
+        //if 5 wrong then head and body and arms and leg
+        if(numBody == 5) {
+            gallowPanel.removeAll();
+            ImageIcon gallow5 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow5.gif");
+            JLabel holdgallow5 = new JLabel(gallow5);
+            gallowPanel.add(holdgallow5);
+        }
+
+        //if 6 wrong then head and body
+        if(numBody == 6) {
+            gallowPanel.removeAll();
+            ImageIcon gallow6 = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow6.gif");
+            JLabel holdgallow6 = new JLabel(gallow6);
+            gallowPanel.add(holdgallow6);
+        }
+
+
     }
 
     //change incorrect to a string with incorrect letters
