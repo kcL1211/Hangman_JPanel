@@ -165,7 +165,7 @@ public class Hangman {
         String output = "";
         for(String letter:correct){
             output += letter;
-            if (letter == "_"){
+            if (letter.equals("_")){
                 output += " ";
             }
         }
@@ -189,7 +189,7 @@ public class Hangman {
     //update picture
     public void updatePic(){
         ImageIcon head = new ImageIcon();
-
+        //delete me
     }
 
     //change incorrect to a string with incorrect letters
