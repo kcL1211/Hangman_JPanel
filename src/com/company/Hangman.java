@@ -15,41 +15,20 @@ import javax.swing.GroupLayout;
  */
 
 public class Hangman {
-    //word to be guessed
-    String word;
+    static final int MAX_GUESSES = 6;    //number of possible guesses before game over
 
-    //letters the player guessed correctly
-    ArrayList<String> correct;
-
-    //letters the player guessed incorrectly
-    ArrayList<String> incorrect;
-
-    //textbox where guessed letters are typed
-    JTextField guessTextField;
-
-    //title above correctly guessed letters
-    JLabel correctLettersText;
-
-    //title above incorrectly guessed letters
-    JLabel incorrectLettersText;
-
-    //panel to hold gallows
-    JPanel gallowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-    //gallow in here
-    JLabel holdgallow;
-
-    //create image gallow
-    ImageIcon gallow;
-
-    //number of possible guesses before game over
-    static final int MAX_GUESSES = 6;
-
+    String word;    //word to be guessed
+    ArrayList<String> correct;       //letters the player guessed correctly
+    ArrayList<String> incorrect;    //letters the player guessed incorrectly
+    JFrame gameFrame;
+    JTextField guessTextField;       //textbox where guessed letters are typed
+    JLabel correctLettersText;       //title above correctly guessed letters
+    JLabel incorrectLettersText;    //title above incorrectly guessed letters
+    JPanel gallowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));    //panel to hold gallows
 
     public Hangman() {
         //calls on method that asks user for word
         word = askWord();
-        createShowGUI(word);
 
         //fills both arrayLists with underscores
         correct = new ArrayList<String>();
@@ -57,6 +36,8 @@ public class Hangman {
             correct.add("_");
         }
         incorrect = new ArrayList<String>();
+
+        createShowGUI(word);
     }
 
     //asks user for word in a dialog box
@@ -69,7 +50,7 @@ public class Hangman {
     //creates GUI that displays all the components
     public void createShowGUI(String word) {
         //frame that has all components
-        JFrame gameFrame = new JFrame("Hangman");
+        gameFrame = new JFrame("Hangman");
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // gameFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
@@ -104,8 +85,8 @@ public class Hangman {
         incorrectLettersPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //display gallow
-        gallow = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow.gif");
-        holdgallow = new JLabel(gallow);
+        ImageIcon gallow = new ImageIcon("/Users/Casey/Hangman_JPanel/src/gallow.gif");
+        JLabel holdgallow = new JLabel(gallow);
         gallowPanel.add(holdgallow);
         gallowPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -272,18 +253,25 @@ public class Hangman {
     public void gameOver(String input) {
         JFrame gameOver = new JFrame("Hangman");
         JOptionPane.showMessageDialog(gameOver, "Game Over! \n" + "Word was " + input);
+
         playAgain();
     }
 
     //asks to play again
-    public boolean playAgain() {
+    public void playAgain() {
         JFrame playAgain = new JFrame("Hangman");
         int numberBoolean = JOptionPane.showConfirmDialog(playAgain, "Would you like to play again?", "Hangman", JOptionPane.YES_NO_OPTION);
-        return numberBoolean == JOptionPane.YES_OPTION;
+        if(numberBoolean == JOptionPane.YES_OPTION){
+            Hangman game = new Hangman();
+        }
+        else{
+            gameFrame.dispose();
+        }
     }
 
 
     public static void main(String[] args) {
         Hangman game = new Hangman();
     }
+
 }
